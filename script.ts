@@ -54,7 +54,7 @@ const greet2 = (): void | boolean | number | string[] | (string | number) [] => 
 function greet3(name: string, type: number): string{
     return name + "hi";
 }
-// в коллбэке необязательны типы, но можно и написать, иногда нужно ???
+// в коллбэке необязательны типы, но можно и написать, иногда нужно, если специально что-то другое хочешь написать ???
 ages.map((el)=>{
     return el*2;
 })
@@ -168,3 +168,132 @@ let user5: IUser ={
 // 1. интерфейс не принимает примитивы как тип 
 //    нельзя написатьть interface IUser = string
 // 2. интерфейсы можно комбинироваьт, т.е экстендить как классы
+
+
+interface Animal {
+    name: string;
+}
+
+interface Cat extends Animal {
+    tail?: boolean;
+}
+
+let catTom: Cat ={
+   name: "Tom",
+   tail: true
+}
+
+// но тайп может имитировать экстенд
+// но смысла нет, у нас ведь есть интерфейсы
+
+type Animal1 ={
+    name: string;
+}
+
+type Dog = Animal1 & {
+    tail?: boolean;
+}
+
+const dog1: Dog ={
+    name: "dog1"
+}
+
+// еще особенность интерфэйсов - то что они могут мерджиться
+// это не ошибка архитектуры, скорее особенность которую можно использовать
+// с тайпами такое невозможно
+interface Bird {
+    name: string;
+}
+
+interface Bird {
+    tail: boolean;
+}
+
+const bird1: Bird ={
+    name: "Bird1",
+    tail: true
+}
+
+
+// Практика
+// js object  сделать ему интерфэйс
+
+const user ={
+    name: "Bob",
+    age: 24,
+    address: {
+        city: " Berlin",
+        country: "Germany"
+    },
+    friends: ["Mike", "Alice", "Greg"]
+}
+
+// обычно сетевые запросы реализуются через интерфэйс
+
+interface IUser10 {
+    name: string;
+    age: number;
+    address: IAddress;
+    friends: string []
+}
+
+// обычно сетевые запросы реализуются через интерфэйс
+interface IAddress {
+    city: string;
+    country: string;
+}
+
+const user125: IUser10 ={
+    name: "Bob",
+    age: 24,
+    address: {
+        city: "Berlin",
+        country: "Germany"
+    },
+    friends: ["Mike", "Alice", "Greg"]
+}
+
+
+
+// Beispiel 2
+interface IUserGeo{
+   lat: string;
+   lng: string;
+}
+
+interface JSONAddress {
+  street: string;
+  suite: string;
+  city: string;
+  zipcode: string;
+//   может прийти а может не прийти с бэкенда. 
+// Обычно не geo? (типа опция) Потому что оно на бэкенде либо string либо null, а не undefined в базе данных заполнено 
+  geo: IUserGeo | null;
+}
+
+
+interface IUserCompany{
+    name: string;
+    catchPhrase: string;
+    bs: string;
+}
+
+interface IJSONUser{
+    id: number;
+    name: string;
+    username: string;
+    email: string;
+    address: JSONAddress;
+    phone: string;
+    website: string;
+    company: IUserCompany;
+}
+
+
+
+function fetchData(): IJSONUser[] | null {
+    return fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => {
+        return response.json();
+    });
+}
