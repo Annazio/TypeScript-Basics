@@ -289,11 +289,15 @@ interface IJSONUser{
     company: IUserCompany;
 }
 
+type rejectType = string | null;
 
+type validateResUsers = IJSONUser[] | rejectType | null;
 
-function fetchData(): IJSONUser[] | null {
-    return fetch("https://jsonplaceholder.typicode.com/users")
-    .then((response) => {
-        return response.json();
-    });
-}
+// function fetchDataUsers(): validateResUsers {
+//     return fetch("https://jsonplaceholder.typicode.com/users")
+//     .then((response) => {
+//         return response.json();
+//     });
+// }
+// напрямую подключить нельзя ts нельзя как script.js потому что это не отдельный язык программировния
+// нужно в терминале писать tsc .\index.ts. Появится файл index.js и уже скомпилированный файл нужно подключить.
