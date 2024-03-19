@@ -139,4 +139,75 @@ var user125 = {
 //     });
 // }
 // напрямую подключить нельзя ts нельзя как script.js потому что это не отдельный язык программировния
-// нужно в терминале писать tsc .\index.ts. Появится файл index.js и уже скомпилированный файл нужно подключить.
+// нужно в терминале писать tsc index.ts. Появится файл index.js и уже скомпилированный файл нужно подключить.
+// после изменений нужно заново компилировать 
+// Literal Types
+// в основном на бэкенде, на клиенте очень редко 
+var s = "hello";
+// это литеральный тип
+// создаетсяяя через const
+// если объявляем через const и не указываем тип явно, создаетс литеральный тип 
+// переменная которая никогда не меняется
+var t = "hello";
+// такое технически невозможно сломать
+function moveDog(direction) {
+    switch (direction) {
+        case "left":
+            return -1;
+        case "right":
+            return 1;
+        default:
+            return 0;
+    }
+}
+moveDog("left");
+function connect(connection) {
+}
+connect("default");
+var connection = {
+    host: "localhost",
+    protocol: "https",
+};
+function connect1(host, protocol) { }
+connect1(connection.host, connection.protocol);
+var y = 5;
+// 3 способа
+var c = y;
+var r = y;
+var p = y;
+//   немного невалидно для jsx иначе путается с разметкой
+var l = y;
+var Direction1;
+(function (Direction1) {
+    Direction1["Left"] = "left";
+    Direction1["Right"] = "right";
+})(Direction1 || (Direction1 = {}));
+function moveDog5(direction) {
+    switch (direction) {
+        case Direction1.Left:
+            return -1;
+        case Direction1.Right:
+            return 1;
+    }
+}
+//   ====================Generics===========
+// function log(obj: string | number): string | number {
+//   return obj;
+// }
+// то что придет в качестве аргумента то и возвращено будет в ретурн
+// динамическая типизация
+function log2(obj) {
+    return obj;
+}
+log2("hello");
+log2(5);
+function log3(obj, arr) {
+    return arr;
+}
+log3("ls", [true]);
+function log4(obj, arr) {
+    arr.length;
+    // Object.keys(obj);
+    return arr;
+}
+// =======================================

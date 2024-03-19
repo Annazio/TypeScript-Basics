@@ -300,4 +300,116 @@ type validateResUsers = IJSONUser[] | rejectType | null;
 //     });
 // }
 // напрямую подключить нельзя ts нельзя как script.js потому что это не отдельный язык программировния
-// нужно в терминале писать tsc .\index.ts. Появится файл index.js и уже скомпилированный файл нужно подключить.
+// нужно в терминале писать tsc index.ts. Появится файл index.js и уже скомпилированный файл нужно подключить.
+// после изменений нужно заново компилировать 
+
+
+// Literal Types
+// в основном на бэкенде, на клиенте очень редко 
+
+let s: string = "hello"
+
+// это литеральный тип
+// создаетсяяя через const
+// если объявляем через const и не указываем тип явно, создаетс литеральный тип 
+// переменная которая никогда не меняется
+const t = "hello"
+
+
+type direction = "left" | "right";
+
+
+// такое технически невозможно сломать
+function moveDog(direction: direction): 1 | -1 | 0 {
+      switch (direction) {
+        case "left":
+          return -1;
+        case "right":
+          return 1;
+        default:
+          return 0;
+      }
+    }
+    
+    moveDog("left");
+
+
+
+interface ICnnection {
+    host: string;
+    port: number
+}
+
+    function connect(connection: ICnnection | "default") {
+
+    }
+
+    connect("default");
+
+
+    const connection = {
+          host: "localhost",
+          protocol: "https" as "https",
+        };
+        
+        function connect1(host: string, protocol: "http" | "https") {}
+        
+        connect1(connection.host, connection.protocol);
+
+
+        let y: any = 5
+        // 3 способа
+        let c: number = y;
+        let r = y as number;
+        let p = <number | string>y;
+    //   немного невалидно для jsx иначе путается с разметкой
+        let l = <number>y; 
+
+// ================================
+// литералы часто заменяются enam
+// автоматически формирует значение
+// на клиенте редко используется, но возможно
+type roles = "admin" | "manager" | "lawyer";
+
+enum Direction1 {
+  Left = "left",
+  Right = "right",
+}
+
+function moveDog5(direction: Direction1) {
+    switch (direction) {
+      case Direction1.Left:
+        return -1;
+      case Direction1.Right:
+        return 1;
+    }
+  }
+  
+//   ====================Generics===========
+// function log(obj: string | number): string | number {
+//   return obj;
+// }
+
+// то что придет в качестве аргумента то и возвращено будет в ретурн
+// динамическая типизация
+function log2<T>(obj: T): T {
+    return obj;
+  }
+  
+  log2<string>("hello");
+  log2<number>(5);
+  
+  function log3<T, K>(obj: T, arr: K[]): K[] {
+    return arr;
+  }
+  
+  log3<string, boolean>("ls", [true]);
+  
+  function log4<T, K>(obj: T, arr: K[]): K[] {
+    arr.length;
+    // Object.keys(obj);
+    return arr;
+  }
+  
+  // =======================================
+  
