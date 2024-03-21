@@ -412,4 +412,10 @@ function log2<T>(obj: T): T {
   }
   
   // =======================================
-  
+//   Classes
+class Coord {
+    constructor(lat: number, long: number){
+        this.lat = lat;
+        this.long = long;
+    }
+}
